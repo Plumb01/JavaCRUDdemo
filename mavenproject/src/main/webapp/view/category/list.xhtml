@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    
+    <h:head>
+        <title>Category</title>
+        <h:outputStylesheet library="css" name="main.css"/>
+        <h:outputStylesheet library="css" name="primeflex.min.css"/>
+    </h:head>
+    <h:body>
+        <h:form id="mainForm" >
+            <p:outputPanel id="container" styleClass="container">
+                
+                <div class="title">
+                    Category
+                </div>
+                
+                <div class="toolbar">
+                    
+                    <p:inputText placeholder="category name"/>
+                    
+                    <p:commandButton icon="pi pi-search" styleClass="p-ml-2"/>
+                    
+                    <p:button value="Add Category" styleClass="p-ml-2" outcome="create.xhtml"/>
+                </div>
+                <div class="content">
+                    <p:dataTable id="dataTable" value="#{categoryList.categories}" var="cat">
+                        
+                        <p:column headerText="Category Name">
+                            <h:outputText value="#{cat.name}"/>
+                        </p:column>
+                        
+                        <p:column headerText="Waktu dibuat">
+                            <h:outputText value="#{cat.waktuDibuat}">
+                                <f:convertDateTime locale="id" pattern="dd MMMM yyyy HH:mm"/>
+                            </h:outputText>
+                        </p:column>
+                        
+                        <p:column headerText="Action">
+                            <p:link outcome="edit.xhtml" value="Edit">
+                                <f:param name="id" value="#{cat.id}"/>
+                            </p:link>
+                            | 
+                            <p:commandLink value="Delete" actionListener="#{categoryList.remove(cat)}" update="dataTable"/>
+                        </p:column>
+                        
+                    </p:dataTable>
+                </div>
+            </p:outputPanel>
+        </h:form>
+    </h:body>
+</html>
+
